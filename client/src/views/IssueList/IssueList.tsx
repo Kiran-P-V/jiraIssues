@@ -4,14 +4,15 @@ import { getRequest } from "../../api/axios";
 import { JiraEndpoints } from "../../utils/endpoints";
 import ListingCard from "./components/ListingCard";
 import SelectFilter from "../../components/common/select";
+import { AssigneeOptionMapingType } from "../../utils/types";
 
 const IssueList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalIssues, setTotalIssues] = useState(0);
-  const [statusFilter, setStatusFilter] = useState<string | null>(null);
-  const [assigneeFilter, setAssigneeFilter] = useState<string | null>(null);
+  const [statusFilter, setStatusFilter] = useState<string | number>("");
+  const [assigneeFilter, setAssigneeFilter] = useState<string | number>("");
   const issuesPerPage = 8;
-  const projectKey = "KAN";
+  const projectKey = import.meta.env.VITE_JIRA_PROJECT_KEY;
   const totalPages = Math.ceil(totalIssues / issuesPerPage);
 
   // Fetch all assignees for the dropdown filter
@@ -74,14 +75,14 @@ const IssueList = () => {
 
   // Filter change handlers
   const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setStatusFilter(event.target.value || null);
+    setStatusFilter(event.target.value);
     setCurrentPage(1); // Reset to first page when filter changes
   };
 
   const handleAssigneeChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    setAssigneeFilter(event.target.value || null);
+    setAssigneeFilter(event.target.value);
     setCurrentPage(1); // Reset to first page when filter changes
   };
 
@@ -96,7 +97,7 @@ const IssueList = () => {
   // Options for the assignee filter dropdown
   const assigneeOptions = [
     { value: "", label: "All" },
-    ...(getAllAssignees?.map((assignee: any) => ({
+    ...(getAllAssignees?.map((assignee: AssigneeOptionMapingType) => ({
       value: assignee.displayName,
       label: assignee.displayName,
     })) || []),

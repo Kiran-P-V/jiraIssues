@@ -20,18 +20,14 @@ const axiosClient = axios.create({
 export default axiosClient;
 
 export const getRequest = async (URL: string) => {
-  console.log({ URL });
-  console.log(HTTP_CONSTANTS.PROXY_SERVER);
   try {
     const { data } = await axiosClient.get(
       queryString.stringifyUrl({
         url: `${HTTP_CONSTANTS?.PROXY_SERVER}/${URL}`,
       })
     );
-    console.log({ data });
     return data;
   } catch (error: any) {
-    console.log(error);
     if (error?.name == "AxiosError") {
       throw error?.response.data.message;
     } else throw error;

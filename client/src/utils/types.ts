@@ -30,28 +30,6 @@ export interface Assignee {
   displayName: string;
 }
 
-// export interface ListingCardTypes {
-//   getAllIssuesLoading: boolean;
-//   getAllIssues: {
-//     issues: Array<{
-//       id: string;
-//       key: string;
-//       fields: {
-//         summary: string;
-//         issuetype: {
-//           name: string;
-//         };
-//         status: {
-//           name: string;
-//         };
-//         assignee?: {
-//           displayName: string;
-//         } | null;
-//       };
-//     }>;
-//   } | null;
-// }
-
 export interface ListingCardTypes {
   getAllIssuesLoading: boolean;
   getAllIssues: {
@@ -63,8 +41,13 @@ export interface ListingCardTypes {
 export interface SelectFilterProps {
   label: string;
   id: string;
-  value: string | number | null;
+  value: string | number;
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   options: Array<{ value: string; label: string }>;
   className?: string;
+}
+
+export interface AssigneeOptionMapingType {
+  displayName: string;
+  // Add any other properties you expect in the assignee object if needed
 }
