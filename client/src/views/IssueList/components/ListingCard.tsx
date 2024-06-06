@@ -1,19 +1,23 @@
 import Loading from "../../../components/common/loading";
 import { ListingCardTypes } from "../../../utils/types";
 
-const ListingCard: React.FC<ListingCardTypes> = ({
+const ListingCard = ({
   getAllIssuesLoading,
   getAllIssues,
   getAllIssueError,
-}) => {
-  console.log(getAllIssueError);
+}: ListingCardTypes) => {
+  if (getAllIssuesLoading) {
+    return <Loading />;
+  }
+
+  if (getAllIssueError) {
+    console.log(getAllIssueError);
+    return <p className="text-center text-red-500">{getAllIssueError}</p>;
+  }
+
   return (
     <>
-      {getAllIssuesLoading ? (
-        <Loading />
-      ) : getAllIssueError ? (
-        <p className="text-center text-red-500">{getAllIssueError}</p>
-      ) : getAllIssues?.issues && getAllIssues.issues.length > 0 ? (
+      {getAllIssues?.issues && getAllIssues.issues.length > 0 ? (
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full">
           {getAllIssues.issues.map((issue) => (
             <li
@@ -26,7 +30,7 @@ const ListingCard: React.FC<ListingCardTypes> = ({
               <p className="truncate">
                 <strong className="text-gray-600">Key:</strong> {issue.key}
               </p>
-              <p className="truncate">
+              <p data-tooltip-target="tooltip-default" className="truncate">
                 <strong className="text-gray-600">Summary:</strong>
                 {issue.fields.summary}
               </p>

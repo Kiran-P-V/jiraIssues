@@ -97,7 +97,6 @@ const IssueList = () => {
 
   const assigneeOptions = [
     { value: "", label: "All" },
-    { value: "null", label: "Unassigned" },
     ...(getAllAssignees?.map((assignee: any) => ({
       value: assignee.displayName,
       label: assignee.displayName,

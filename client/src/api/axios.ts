@@ -33,8 +33,7 @@ export const getRequest = async (URL: string) => {
   } catch (error: any) {
     console.log(error);
     if (error?.name == "AxiosError") {
-      throw error?.message;
-      return error?.message;
+      throw error?.response.data.message;
     } else throw error;
   }
 };
