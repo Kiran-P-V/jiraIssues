@@ -11,7 +11,7 @@ const IssueList = () => {
   const [statusFilter, setStatusFilter] = useState<string | null>(null);
   const [assigneeFilter, setAssigneeFilter] = useState<string | null>(null);
   const issuesPerPage = 8;
-  const projectKey = "KAN"; // Replace with your actual project key
+  const projectKey = "KAN";
   const totalPages = Math.ceil(totalIssues / issuesPerPage);
 
   const { data: getAllAssignees } = useQuery({
@@ -40,21 +40,11 @@ const IssueList = () => {
     refetch: refetchGetAllIssues,
     isLoading: getAllIssuesLoading,
     error: getAllIssueError,
-    isRefetchError,
-    isLoadingError,
-    isError,
   } = useQuery({
     queryKey: ["getAllIssues", currentPage, statusFilter, assigneeFilter],
     queryFn: fetchIssues,
     enabled: false,
   });
-
-  useEffect(() => {
-    console.log({ getAllIssueError });
-    console.log({ isRefetchError });
-    console.log({ isLoadingError });
-    console.log({ isError });
-  }, [getAllIssueError, isRefetchError, isLoadingError, isError]);
 
   useEffect(() => {
     if (getAllIssues?.total) setTotalIssues(getAllIssues?.total);
