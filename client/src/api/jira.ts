@@ -17,6 +17,7 @@ const fetchIssues = async (
   )}&startAt=${startAt}&maxResults=${maxResults}`;
 
   try {
+    console.log({ url });
     const response = await axios.get(url);
     return {
       issues: response.data.issues,

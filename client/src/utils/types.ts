@@ -10,7 +10,7 @@ export interface IssueType {
     status: {
       name: string;
     };
-    assignee: {
+    assignee?: {
       displayName: string;
     } | null;
   };
@@ -28,4 +28,43 @@ export interface IssuesResponse {
 
 export interface Assignee {
   displayName: string;
+}
+
+// export interface ListingCardTypes {
+//   getAllIssuesLoading: boolean;
+//   getAllIssues: {
+//     issues: Array<{
+//       id: string;
+//       key: string;
+//       fields: {
+//         summary: string;
+//         issuetype: {
+//           name: string;
+//         };
+//         status: {
+//           name: string;
+//         };
+//         assignee?: {
+//           displayName: string;
+//         } | null;
+//       };
+//     }>;
+//   } | null;
+// }
+
+export interface ListingCardTypes {
+  getAllIssuesLoading: boolean;
+  getAllIssues: {
+    issues: IssueType[] | null;
+  } | null;
+  getAllIssueError: any;
+}
+
+export interface SelectFilterProps {
+  label: string;
+  id: string;
+  value: string | number | null;
+  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  options: Array<{ value: string; label: string }>;
+  className?: string;
 }
