@@ -12,8 +12,8 @@ const IssueList = () => {
   const [statusFilter, setStatusFilter] = useState<string | number>("");
   const [assigneeFilter, setAssigneeFilter] = useState<string | number>("");
   const issuesPerPage = 8;
-  const projectKey = import.meta.env.VITE_JIRA_PROJECT_KEY;
   const totalPages = Math.ceil(totalIssues / issuesPerPage);
+  const projectKey = import.meta.env.VITE_JIRA_PROJECT_KEY; //project key from the .env
 
   // Fetch all assignees for the dropdown filter
   const { data: getAllAssignees } = useQuery({
