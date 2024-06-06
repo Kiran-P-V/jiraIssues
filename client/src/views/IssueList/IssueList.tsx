@@ -14,15 +14,17 @@ const IssueList = () => {
   const projectKey = "KAN";
   const totalPages = Math.ceil(totalIssues / issuesPerPage);
 
+  // Fetch all assignees for the dropdown filter
   const { data: getAllAssignees } = useQuery({
     queryKey: ["getAllAssignees"],
     queryFn: () => {
       return getRequest(
-        `${JiraEndpoints?.getAllAssignees}?project=${projectKey}`
+        `${JiraEndpoints.getAllAssignees}?project=${projectKey}`
       );
     },
   });
 
+  // Fetch issues with filters applied
   const fetchIssues = () => {
     let jql = `project=${projectKey}`;
     if (statusFilter) jql += ` AND status="${statusFilter}"`;
@@ -35,6 +37,7 @@ const IssueList = () => {
     );
   };
 
+  // Fetch issues data using react-query
   const {
     data: getAllIssues,
     refetch: refetchGetAllIssues,
@@ -46,14 +49,17 @@ const IssueList = () => {
     enabled: false,
   });
 
+  // Update total issues count whenever the data changes
   useEffect(() => {
-    if (getAllIssues?.total) setTotalIssues(getAllIssues?.total);
+    if (getAllIssues?.total) setTotalIssues(getAllIssues.total);
   }, [getAllIssues]);
 
+  // Refetch issues when current page or filters change
   useEffect(() => {
     refetchGetAllIssues();
   }, [currentPage, statusFilter, assigneeFilter]);
 
+  // Pagination handlers
   const handleNextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
@@ -66,6 +72,7 @@ const IssueList = () => {
     }
   };
 
+  // Filter change handlers
   const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setStatusFilter(event.target.value || null);
     setCurrentPage(1); // Reset to first page when filter changes
@@ -78,6 +85,7 @@ const IssueList = () => {
     setCurrentPage(1); // Reset to first page when filter changes
   };
 
+  // Options for the status filter dropdown
   const statusOptions = [
     { value: "", label: "All" },
     { value: "To Do", label: "To Do" },
@@ -85,6 +93,7 @@ const IssueList = () => {
     { value: "Done", label: "Done" },
   ];
 
+  // Options for the assignee filter dropdown
   const assigneeOptions = [
     { value: "", label: "All" },
     ...(getAllAssignees?.map((assignee: any) => ({
@@ -98,25 +107,21 @@ const IssueList = () => {
       <p className="font-bold text-4xl text-blue-400 my-4">Jira Issues</p>
       <div className="bg-blue-300 w-full max-w-7xl h-full p-4 rounded-xl flex flex-col items-center">
         <div className="flex w-full justify-between mb-4">
-          <div>
-            <SelectFilter
-              label="Status"
-              id="status-filter"
-              value={statusFilter}
-              onChange={handleStatusChange}
-              options={statusOptions}
-              className="mr-4"
-            />
-          </div>
-          <div>
-            <SelectFilter
-              label="Assignee"
-              id="assignee-filter"
-              value={assigneeFilter}
-              onChange={handleAssigneeChange}
-              options={assigneeOptions}
-            />
-          </div>
+          <SelectFilter
+            label="Status"
+            id="status-filter"
+            value={statusFilter}
+            onChange={handleStatusChange}
+            options={statusOptions}
+            className="mr-4"
+          />
+          <SelectFilter
+            label="Assignee"
+            id="assignee-filter"
+            value={assigneeFilter}
+            onChange={handleAssigneeChange}
+            options={assigneeOptions}
+          />
         </div>
         <ListingCard
           getAllIssues={getAllIssues}
