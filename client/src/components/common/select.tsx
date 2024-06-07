@@ -9,7 +9,7 @@ const SelectFilter: React.FC<SelectFilterProps> = ({
   className,
 }) => {
   return (
-    <div>
+    <div className="flex flex-col">
       <label htmlFor={id} className="mr-2">
         {label}:
       </label>
