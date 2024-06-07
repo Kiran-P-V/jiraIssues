@@ -2,10 +2,9 @@
 import axios from "axios";
 import queryString from "query-string";
 
-// PROXY_SERVER: "http://localhost:4000",
 export const HTTP_CONSTANTS = {
-  PROXY_SERVER: "https://jira-issues-736nxkpjk-kiran-pvs-projects.vercel.app",
-  PROXY_SERVER: "http://localhost:4000",
+  // PROXY_SERVER: "http://localhost:4000",
+  PROXY_SERVER: "https://jiraissues-3.onrender.com",
   HTTP_HEADERS: {
     "Content-Type": "application/json",
     Accept: "application/json",
