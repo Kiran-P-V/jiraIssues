@@ -2,8 +2,9 @@
 import axios from "axios";
 import queryString from "query-string";
 
+// PROXY_SERVER: "http://localhost:4000",
 export const HTTP_CONSTANTS = {
-  PROXY_SERVER: "http://localhost:4000",
+  PROXY_SERVER: "https://jira-issues-736nxkpjk-kiran-pvs-projects.vercel.app",
   HTTP_HEADERS: {
     "Content-Type": "application/json",
     Accept: "application/json",
@@ -28,8 +29,9 @@ export const getRequest = async (URL: string) => {
     );
     return data;
   } catch (error: any) {
+    console.log(error);
     if (error?.name == "AxiosError") {
-      throw error?.response.data.message;
+      throw error?.response?.data?.message;
     } else throw error;
   }
 };
