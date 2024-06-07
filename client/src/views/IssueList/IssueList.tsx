@@ -104,7 +104,7 @@ const IssueList = () => {
   ];
 
   return (
-    <div className="bg-blue-100 min-h-screen flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center">
       <p className="font-bold text-4xl text-blue-400 my-4">Jira Issues</p>
       <div className="bg-blue-300 w-full max-w-7xl h-full p-4 rounded-xl flex flex-col items-center">
         <div className="flex w-full justify-between mb-4">
