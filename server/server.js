@@ -15,4 +15,5 @@ app.use("/jira", router);
 // Start the server
 app.listen(config.port, () => {
   console.log(`Server running on port ${config.port}`);
+  console.log("Allowed origins:", corsOptions.origin);
 });
