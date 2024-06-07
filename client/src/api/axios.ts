@@ -4,7 +4,9 @@ import queryString from "query-string";
 
 export const HTTP_CONSTANTS = {
   // PROXY_SERVER: "http://localhost:4000",
-  PROXY_SERVER: "https://jiraissues-3.onrender.com",
+  PROXY_SERVER:
+    import.meta.env.VITE_APP_API_BASE_URL ||
+    "https://jiraissues-3.onrender.com",
   HTTP_HEADERS: {
     "Content-Type": "application/json",
     Accept: "application/json",
