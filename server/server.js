@@ -8,6 +8,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(corsMiddleware);
+app.use(express.static("public"));
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
