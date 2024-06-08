@@ -17,8 +17,6 @@ const axiosClient = axios.create({
   },
 });
 
-export default axiosClient;
-
 export const getRequest = async (URL: string) => {
   try {
     const { data } = await axiosClient.get(
@@ -28,9 +26,10 @@ export const getRequest = async (URL: string) => {
     );
     return data;
   } catch (error: any) {
-    console.log(error);
-    if (error?.name == "AxiosError") {
+    console.log(error?.message);
+    console.log(error?.response?.data?.message);
+    if (error?.response?.data?.message) {
       throw error?.response?.data?.message;
-    } else throw error;
+    } else throw error?.message;
   }
 };
